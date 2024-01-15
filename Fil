@@ -1,0 +1,28 @@
+import pandas as pd
+import tkinter as tk
+from tkinter import ttk
+
+# خواندن جدول از فایل اکسل
+df = pd.read_excel('path/to/your/excel/file.xlsx')
+
+# ایجاد پنجره اصلی
+window = tk.Tk()
+
+# ایجاد جدول
+table = ttk.Treeview(window)
+
+# افزودن ستون‌ها به جدول
+table["columns"] = list(df.columns)
+for column in df.columns:
+    table.column(column, width=100)
+    table.heading(column, text=column)
+
+# افزودن ردیف‌ها به جدول
+for index, row in df.iterrows():
+    table.insert("", tk.END, text=index, values=list(row))
+
+# نمایش جدول
+table.pack()
+
+# نمایش پنجره
+window.mainloop(
